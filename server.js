@@ -1,15 +1,20 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const bot = new Discord.Client();
 const settings = require('./settings.json');
 
-client.on('ready', () => {
+bot.on('ready', () => {
     console.log('I\'m Onlline');
 })
 
-client.on('message', message => {
+bot.on('message', message => {
+    if (message.author.bot) return;
+    // if (!message.content.startsWith(prefix)) return;
+
     if (message.content === 'ควย') {
         message.channel.sendMessage('ควยพ่อง');
+    } else {
+        message.channel.sendMessage(message.content);
     }
 });
 
-client.login(settings.token);
+bot.login(settings.token);
