@@ -9,8 +9,6 @@ client.on('ready', () => {
 client.on('message', message => {
     if (message.content === 'ควย') {
         message.channel.sendMessage('ควยพ่อง');
-    } else {
-        message.channel.sendMessage(message.content);
     }
 });
 
