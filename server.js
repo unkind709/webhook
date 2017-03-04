@@ -31,6 +31,7 @@ bot.on('message', message => {
     if (command === '!add') {
         let args = message.content.split(" ").slice(1);
         let data = args.map(n => n);
+        console.log(data);
         // message.channel.sendMessage(req[0]+ " "+req[1]);
         var req = {
             input: data[0],
@@ -44,6 +45,9 @@ bot.on('message', message => {
                 message.channel.sendMessage(brain);
             }
         });
+    } else if (message.content === '!ping') {
+        console.log(bot.pings);
+        message.channel.sendMessage(bot.ping);
     } else if (message.content === '!list') {
         Brain.find({}, function (err, brains) {
             if (err) {
@@ -53,13 +57,20 @@ bot.on('message', message => {
             }
         });
     } else {
-        Brain.find({input: message.content}, function (err, brains) {
+        Brain.find({ input: message.content }, function (err, brains) {
+
             if (err) {
                 return;
             } else {
-                let index = Math.floor(Math.random()* brains.length);
-                message.channel.sendMessage(brains[index].output);
+                if (brains.length > 0) {
+                    let index = Math.floor(Math.random() * brains.length);
+                    message.channel.sendMessage(brains[index].output);
+                } else {
+                    message.channel.sendMessage("สอนฉันทีสิ (!add ถาม ตอบ)");
+                }
             }
+
+
         });
     }
 });
